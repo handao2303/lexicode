@@ -129,7 +129,7 @@ npm run build        # static build in dist/
    | :--- | :--- |
    | `VITE_SUPABASE_URL` | `https://<project-ref>.supabase.co` |
    | `VITE_SUPABASE_ANON_KEY` | the project's anon / publishable key |
-   | `VITE_MEDIA_BASE` | `https://cdn.jsdelivr.net/gh/designfuchen/word-atlas@0f1bae41fe5428f0f44781e60282525407b5ae46/public/atlas` |
+   | `VITE_MEDIA_BASE` | `https://cdn.jsdelivr.net/gh/handao2303/lexicode@0e6154a92358743b018291f10765b7d9d30b3413/public/atlas` |
 
    [`.vercelignore`](.vercelignore) keeps the media out of the upload; the build serves them from `VITE_MEDIA_BASE`.
 
