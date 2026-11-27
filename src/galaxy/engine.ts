@@ -122,9 +122,9 @@ void main(){
   vec2 uv = vUv; uv.x *= uAspect;
   vec2 q = uv * 2.2 + vec2(uYaw * 0.35, 0.0) + uTime * 0.008;
   float f = fbm(q + fbm(q * 1.7 + uTime * 0.01));
-  vec3 base = vec3(0.035, 0.047, 0.098);
-  vec3 c1 = vec3(0.23, 0.16, 0.42);   // plum
-  vec3 c2 = vec3(0.08, 0.27, 0.36);   // teal
+  vec3 base = vec3(0.075, 0.05, 0.2);
+  vec3 c1 = vec3(0.42, 0.2, 0.62);   // violet
+  vec3 c2 = vec3(0.7, 0.24, 0.34);   // coral glow
   vec3 c3 = vec3(0.55, 0.32, 0.18);   // ochre dust
   vec3 col = base + c1 * smoothstep(0.45, 0.95, f) * 0.55 + c2 * smoothstep(0.55, 1.0, fbm(q * 0.8 - 3.0)) * 0.45;
   vec2 cd = (vUv - uCore); cd.x *= uAspect;
@@ -446,8 +446,8 @@ export class GalaxyEngine {
     if (!g) return;
     g.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
     const bg = g.createRadialGradient(this.w / 2, this.h / 2, 0, this.w / 2, this.h / 2, Math.max(this.w, this.h) * 0.7);
-    bg.addColorStop(0, "#1b1d38");
-    bg.addColorStop(1, "#090c18");
+    bg.addColorStop(0, "#2a1f63");
+    bg.addColorStop(1, "#120d33");
     g.fillStyle = bg;
     g.fillRect(0, 0, this.w, this.h);
     this.project();
