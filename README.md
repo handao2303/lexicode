@@ -6,7 +6,7 @@
 
 **Learn words and code in one place: 7,298 illustrated IELTS words with Vietnamese meanings and spaced repetition, plus English-language study paths for LeetCode algorithms, SQL for business analysts and data engineering.**
 
-[Live site](https://word-atlas-vi.vercel.app) (invite only) · [Dataset format](docs/dataset.md)
+[Live site](https://word-atlas-vi.vercel.app) (sign in with any Google account) · [Dataset format](docs/dataset.md)
 
 [![Code: MIT](https://img.shields.io/badge/Code-MIT-17283B?style=flat-square)](LICENSE)
 [![Dataset: CC BY 4.0](https://img.shields.io/badge/Dataset-CC_BY_4.0-AD5038?style=flat-square)](CONTENT_LICENSE.md)
@@ -31,7 +31,7 @@ The illustrations, recordings, FSRS scheduler, word galaxy and typing studio com
 - **SQL for BA**: 10 lessons with an in-browser SQL sandbox and 56 LeetCode SQL problems;
 - **Data Engineering**: 9 modules with concept cards, SQL labs and links to the DataExpert.io handbook.
 
-**For the group.** Google sign-in restricted to an allow-list, cross-device sync with a conflict-free merge, and a leaderboard.
+**For the group.** Sign-in with any Google account, cross-device sync with a conflict-free merge, and a leaderboard.
 
 ## Features
 
@@ -53,7 +53,7 @@ The illustrations, recordings, FSRS scheduler, word galaxy and typing studio com
 Browser ──► Vercel        app bundle + Vietnamese word data (≈15 MB)
         ──► jsDelivr      illustrations and audio, pinned to an upstream commit
         ──► Supabase      Google sign-in, progress sync, leaderboard RPC
-                 └─► Google OAuth (Testing mode; test users are the allow-list)
+                 └─► Google OAuth (published, any Google account)
 ```
 
 - **Frontend:** React 19, TypeScript, Vite, ts-fsrs, WebGL2 (galaxy view).
@@ -62,7 +62,7 @@ Browser ──► Vercel        app bundle + Vietnamese word data (≈15 MB)
 
 ### Access control
 
-Only Google sign-in is enabled in Supabase; email, phone and anonymous sign-in are off. The Google OAuth client is in **Testing** mode, so Google only lets listed test users through. To give someone access, add their Gmail address under *Google Auth Platform → Audience → Test users*. Their Supabase account is created on first sign-in.
+Only Google sign-in is enabled in Supabase; email, phone and anonymous sign-in are off. The Google OAuth app is **published** (In production), so any Google account can sign in; the Supabase account is created on first sign-in. It only asks for the basic `openid`, `email` and `profile` scopes, which need no Google verification. Everyone who has signed in appears on the leaderboard by the part of their email before `@`. To restrict access again, switch the app back to Testing under *Google Auth Platform → Audience* and list test users.
 
 ### Sync and merge
 
@@ -122,7 +122,7 @@ npm run build        # static build in dist/
 ## Deploy
 
 1. **Supabase:** create a project and run [`supabase/schema.sql`](supabase/schema.sql) and then [`supabase/leaderboard.sql`](supabase/leaderboard.sql) in the SQL editor. Under *Authentication → Sign In / Providers*, enable Google, disable Email, and keep anonymous sign-ins off. Add your site URL to *URL Configuration*.
-2. **Google Cloud:** create an OAuth client of type *Web application* with the redirect URI `https://<project-ref>.supabase.co/auth/v1/callback`, keep the app in Testing mode and add test users. Paste the client ID and secret into the Supabase Google provider.
+2. **Google Cloud:** create an OAuth client of type *Web application* with the redirect URI `https://<project-ref>.supabase.co/auth/v1/callback`, then publish it under *Audience* (or keep it in Testing and add test users to limit who can sign in). Paste the client ID and secret into the Supabase Google provider.
 3. **Vercel:** import the repository and set these environment variables:
 
    | Variable | Value |

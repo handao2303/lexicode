@@ -54,7 +54,7 @@ function Login() {
           {busy ? "Đang mở Google…" : "Đăng nhập bằng Google"}
         </button>
         {error && <p className="warn-text">{error}</p>}
-        <p className="muted">Dùng tài khoản Gmail đã được cấp quyền. Tiến độ học đồng bộ giữa điện thoại và máy tính.</p>
+        <p className="muted">Dùng bất kỳ tài khoản Google nào. Tiến độ học đồng bộ giữa điện thoại và máy tính.</p>
         </div>
       </div>
     </div>

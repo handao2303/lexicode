@@ -83,7 +83,7 @@ export function oauthErrorFromUrl(): string | null {
   const msg = p.get("error_description");
   if (!msg) return null;
   history.replaceState(null, "", location.pathname);
-  if (/signups? not allowed|not allowed/i.test(msg)) return "Tài khoản Google này chưa được cấp quyền vào trang.";
+  if (/signups? not allowed|not allowed/i.test(msg)) return "Không đăng nhập được bằng tài khoản Google này. Thử lại sau ít phút hoặc dùng tài khoản khác.";
   return msg.replace(/\+/g, " ");
 }
 
