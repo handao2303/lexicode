@@ -10,12 +10,10 @@
     "test": "node --import tsx --test 'src/**/*.test.ts'",
     "check:atlas": "node scripts/check-atlas.mjs",
     "build:atlas": "python3 scripts/atlas/build_atlas.py",
-    "render:cards": "node scripts/render-cards.mjs",
     "pack:public": "python3 scripts/package_public.py --out ../word-atlas-public",
     "format": "prettier --write src vite.config.ts scripts/*.mjs package.json tsconfig.json"
   },
   "dependencies": {
-    "@fontsource-variable/fraunces": "^5.3.0",
     "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
     "@supabase/supabase-js": "^2.119.0",
     "dompurify": "^3.4.18",

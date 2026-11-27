@@ -1,5 +1,5 @@
 /* Lexicode offline cache: app shell network-first, everything else cache-first. */
-const VERSION = "atlas-vi-5";
+const VERSION = "atlas-vi-6";
 const SHELL = `${VERSION}-shell`;
 const MEDIA = `${VERSION}-media`;
 
