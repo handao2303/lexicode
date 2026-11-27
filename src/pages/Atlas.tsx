@@ -1,4 +1,5 @@
 import { Grid3x3, List, Search, Sparkles, X } from "lucide-react";
+import { FoxMood } from "../ui/Fox";
 import { Galaxy } from "../galaxy/Galaxy";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useAtlas } from "../atlas/context";
@@ -228,7 +229,7 @@ export function AtlasPage({
         <Galaxy mode="full" focus={q.trim() ? list[0]?.id : null} />
       ) : list.length === 0 ? (
         <div className="empty">
-          <img src={`${import.meta.env.BASE_URL}brand/empty.webp`} alt="" />
+          <FoxMood mood="sleepy" size={132} />
           <p>Không có từ nào ở đây. Thử bộ lọc khác nhé.</p>
         </div>
       ) : view === "grid" ? (

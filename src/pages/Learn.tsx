@@ -12,7 +12,7 @@ import { Rating } from "../store/srs";
 import { store, useStore, type ActiveSession, type QuizKind, type Step } from "../store/store";
 import { EntryView, Highlight } from "../ui/EntryView";
 import { Illustration } from "../ui/Illustration";
-import { Galaxy } from "../galaxy/Galaxy";
+import { FoxMood } from "../ui/Fox";
 import { AmbiencePicker } from "../ui/Ambience";
 import { Ring } from "../ui/Ring";
 import { Speak } from "../ui/Speak";
@@ -341,7 +341,10 @@ function Feedback({ entry, refw, correct, onNext }: { entry: Entry; refw: WordRe
       <div className="feedback-inner">
         <Illustration src={atlas.img(entry, "thumb")} word={entry.w} topic={refw.topic} className="feedback-art" />
         <div className="feedback-text">
-          <p className="feedback-verdict">{correct ? "Đúng rồi!" : "Không sao, nhớ nó nhé"}</p>
+          <p className="feedback-verdict">
+            <FoxMood mood={correct ? "cheer" : "oops"} size={36} />
+            {correct ? "Đúng rồi!" : "Không sao, nhớ nó nhé"}
+          </p>
           <p className="feedback-word">
             <b lang="en">{entry.w}</b>
             <span className="ipa">{entry.uk || entry.us}</span>
@@ -386,9 +389,12 @@ function Summary({ session }: { session: ActiveSession }) {
   return (
     <div className="learn summary">
       <div className="summary-card">
-        <div className="summary-sky">
-          <Galaxy mode="mini" highlight={words.map((w) => w.id)} ignite />
-          <p>Hôm nay thắp sáng {words.length} ngôi sao</p>
+        <div className="summary-hero">
+          {Array.from({ length: 9 }, (_, i) => (
+            <i key={i} style={{ "--i": i } as React.CSSProperties} />
+          ))}
+          <FoxMood mood={stats.accuracy >= 60 ? "cheer" : "oops"} size={132} />
+          <p>Hôm nay bạn thắp sáng {words.length} ngôi sao</p>
         </div>
         <p className="eyebrow">Xong một chặng</p>
         <h1 className="display">{stats.accuracy >= 90 ? "Một chặng thật đẹp." : stats.accuracy >= 60 ? "Tiến bước vững vàng." : "Từ nào lỡ, sẽ gặp lại."}</h1>
