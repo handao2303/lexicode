@@ -2,7 +2,7 @@ import { streakOf } from "../store/stats";
 import { cloudEnabled, emailName, useCloud } from "../lib/cloud";
 import { Leaderboard } from "../ui/Leaderboard";
 import { LeetCodeToday } from "../ui/LeetCodeToday";
-import { ArrowRight, Flame, Keyboard, Sparkles } from "lucide-react";
+import { ArrowRight, Flame, Keyboard, Search, Sparkles } from "lucide-react";
 import { useEffect, useMemo } from "react";
 import { prefetch, useAtlas, useEntry } from "../atlas/context";
 import { go, openWord } from "../lib/router";
@@ -14,6 +14,7 @@ import { dayKey, store, useStore } from "../store/store";
 import { Galaxy } from "../galaxy/Galaxy";
 import { Highlight, Pronounce } from "../ui/EntryView";
 import { Illustration } from "../ui/Illustration";
+import { FoxScene } from "../ui/Fox";
 import { Ring } from "../ui/Ring";
 
 const BRAND = `${import.meta.env.BASE_URL}brand`;
@@ -73,7 +74,7 @@ export function Today() {
   return (
     <div className="page today">
       <header className="greet">
-        <p className="eyebrow">
+        <p className="muted">
           {["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"][now.getDay()]} · {now.getDate()}/{now.getMonth() + 1}
         </p>
         <h1 className="display">
@@ -81,12 +82,16 @@ export function Today() {
         </h1>
       </header>
 
+      <button className="today-search" onClick={() => go({ page: "atlas" })}>
+        <Search size={19} /> Tìm từ trong từ điển
+      </button>
+
       <section className={`journey ${total === 0 && !active ? "is-clear" : ""}`}>
-        <img className="journey-art" src={`${BRAND}/hero.webp`} alt="" fetchPriority="high" />
+        <FoxScene className="journey-art" />
         <div className="journey-body">
           {active ? (
             <>
-              <p className="eyebrow eyebrow-light">Đang trong hành trình</p>
+              <p className="eyebrow">Đang trong hành trình</p>
               <h2>
                 Còn <b>{active.steps.length - active.index}</b> bước
               </h2>
@@ -94,7 +99,7 @@ export function Today() {
             </>
           ) : total > 0 ? (
             <>
-              <p className="eyebrow eyebrow-light">Hành trình hôm nay</p>
+              <p className="eyebrow">Hành trình hôm nay</p>
               <h2>
                 {plan.due.length > 0 && (
                   <>
@@ -112,7 +117,7 @@ export function Today() {
             </>
           ) : (
             <>
-              <p className="eyebrow eyebrow-light">Hôm nay đã xong</p>
+              <p className="eyebrow">Hôm nay đã xong</p>
               <h2>Sao hôm nay đã sáng hết.</h2>
               <p className="journey-lede">Trí nhớ cần chút nghỉ ngơi. Muốn học thêm cũng được.</p>
             </>
@@ -136,18 +141,20 @@ export function Today() {
               </button>
             )}
             {!active && plan.due.length > 0 && plan.fresh.length > 0 && (
-              <button className="btn btn-glass" onClick={() => start({ reviewOnly: true })}>
+              <button className="btn btn-ghost btn-xl" onClick={() => start({ reviewOnly: true })}>
                 Chỉ ôn tập
               </button>
             )}
             {!active && total === 0 && (
-              <button className="btn btn-glass" onClick={() => go({ page: "practice" })}>
+              <button className="btn btn-ghost btn-xl" onClick={() => go({ page: "practice" })}>
                 <Keyboard size={18} /> Luyện gõ
               </button>
             )}
           </div>
         </div>
       </section>
+
+      <Topics />
 
       <div className="today-grid">
         {cloudEnabled && (
@@ -200,7 +207,6 @@ export function Today() {
 
         <LevelPath />
         <GalaxyPanel learned={learned} total={atlas.count} />
-        <Topics />
       </div>
     </div>
   );
@@ -328,7 +334,7 @@ function Topics() {
   return (
     <section className="topics-panel">
       <div className="panel-head">
-        <h3 className="eyebrow">Khám phá theo chủ đề IELTS</h3>
+        <h3 className="section-title">Chủ đề IELTS</h3>
         <button className="link" onClick={() => go({ page: "atlas" })}>
           Mở từ điển
         </button>

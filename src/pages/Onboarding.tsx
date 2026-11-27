@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { useAtlas } from "../atlas/context";
 import { store } from "../store/store";
+import { FoxScene } from "../ui/Fox";
 
 const LEVELS = [
   ["A2", "Cơ bản", "Từ thông dụng chưa chắc"],
@@ -18,7 +19,7 @@ export function Onboarding() {
   return (
     <div className="onboard" role="dialog" aria-modal="true" aria-label="Chào mừng">
       <div className="onboard-card">
-        <img className="onboard-art" src={`${import.meta.env.BASE_URL}brand/hero.webp`} alt="" />
+        <FoxScene className="onboard-art" />
         <div className="onboard-body">
           <p className="eyebrow">Chào mừng đến với Lexicode</p>
           <h1 className="display">

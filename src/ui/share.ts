@@ -1,8 +1,8 @@
 import type { Atlas, Entry } from "../atlas/types";
 import { toast } from "./Toast";
 
-const SERIF = '"Fraunces Variable", "Songti SC", "Noto Serif SC", Georgia, serif';
-const SANS = '-apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+const SERIF = '"Plus Jakarta Sans Variable", "Segoe UI", sans-serif';
+const SANS = '"Plus Jakarta Sans Variable", "Segoe UI", sans-serif';
 
 function loadImage(src: string) {
   return new Promise<HTMLImageElement>((resolve, reject) => {
@@ -48,7 +48,7 @@ export async function renderWordCard(atlas: Atlas, e: Entry) {
   const ctx = c.getContext("2d")!;
   await Promise.all([document.fonts.load(`600 120px ${SERIF}`), document.fonts.load(`italic 400 40px ${SERIF}`)]).catch(() => null);
 
-  ctx.fillStyle = "#F3ECDF";
+  ctx.fillStyle = "#FAF7F4";
   ctx.fillRect(0, 0, W, H);
   const pad = 72;
   const art = W - pad * 2;
@@ -56,7 +56,7 @@ export async function renderWordCard(atlas: Atlas, e: Entry) {
   ctx.save();
   roundRect(ctx, pad, pad, art, art * 0.78, 36);
   ctx.clip();
-  ctx.fillStyle = "#EAE1D0";
+  ctx.fillStyle = "#F5E9DA";
   ctx.fillRect(pad, pad, art, art * 0.78);
   if (src) {
     try {
@@ -70,7 +70,7 @@ export async function renderWordCard(atlas: Atlas, e: Entry) {
   ctx.restore();
 
   let y = pad + art * 0.78 + 120;
-  ctx.fillStyle = "#1E2640";
+  ctx.fillStyle = "#1B1A27";
   ctx.font = `600 ${e.w.length > 12 ? 92 : 120}px ${SERIF}`;
   ctx.fillText(e.w, pad, y);
   y += 62;
@@ -79,13 +79,13 @@ export async function renderWordCard(atlas: Atlas, e: Entry) {
   ctx.fillText([e.uk && `Anh ${e.uk}`, e.us && e.us !== e.uk && `Mỹ ${e.us}`].filter(Boolean).join("    "), pad, y);
   y += 72;
   ctx.font = `600 40px ${SANS}`;
-  ctx.fillStyle = "#1E2640";
+  ctx.fillStyle = "#1B1A27";
   const s0 = e.senses[0];
-  ctx.fillStyle = "#C4573A";
+  ctx.fillStyle = "#CC3429";
   ctx.font = `italic 400 38px ${SERIF}`;
   ctx.fillText(s0.pos, pad, y);
   const posW = ctx.measureText(s0.pos + "  ").width;
-  ctx.fillStyle = "#1E2640";
+  ctx.fillStyle = "#1B1A27";
   ctx.font = `600 40px ${SANS}`;
   ctx.fillText(e.senses.slice(0, 2).map((s) => s.zh).join("; "), pad + posW, y);
   y += 76;
@@ -103,9 +103,9 @@ export async function renderWordCard(atlas: Atlas, e: Entry) {
       y += 44;
     }
   }
-  ctx.fillStyle = "rgba(30,38,64,.14)";
+  ctx.fillStyle = "rgba(27,26,39,.12)";
   ctx.fillRect(pad, H - 120, art, 2);
-  ctx.fillStyle = "#1E2640";
+  ctx.fillStyle = "#1B1A27";
   ctx.font = `600 34px ${SERIF}`;
   ctx.fillText("Lexicode", pad, H - 62);
   ctx.font = `400 26px ${SANS}`;

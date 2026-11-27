@@ -4,11 +4,11 @@ import { dayKey, store } from "../store/store";
 
 const SEEN_KEY = "word-atlas:splash";
 const PALETTE: [string, number][] = [
-  ["243,236,223", 0.58],
-  ["230,180,87", 0.16],
-  ["229,124,90", 0.12],
-  ["151,184,142", 0.08],
-  ["143,178,204", 0.06],
+  ["27,26,39", 0.58],
+  ["255,95,82", 0.2],
+  ["123,47,240", 0.09],
+  ["240,170,0", 0.08],
+  ["40,150,160", 0.05],
 ];
 
 export function shouldShowSplash() {
@@ -51,32 +51,23 @@ function targets(w: number, h: number, count: number) {
   const top = h * 0.5 - s * 0.3;
   const R = s * 0.085;
   const cy = top + R;
-  g.fillStyle = g.strokeStyle = "#fff";
-  g.lineWidth = Math.max(2, s * 0.006);
-  g.beginPath();
-  g.arc(cx, cy, R, 0, Math.PI * 2);
-  g.stroke();
-  g.beginPath();
-  g.moveTo(cx, cy - R * 0.9);
-  g.lineTo(cx + R * 0.3, cy);
-  g.lineTo(cx, cy + R * 0.9);
-  g.lineTo(cx - R * 0.3, cy);
-  g.closePath();
-  g.fill();
-  g.beginPath();
-  g.moveTo(cx - R * 0.62, cy);
-  g.lineTo(cx, cy - R * 0.1);
-  g.lineTo(cx + R * 0.62, cy);
-  g.lineTo(cx, cy + R * 0.1);
-  g.closePath();
-  g.fill();
+  // The fox head from the logo (48-unit box), with the face cut out.
+  g.save();
+  g.translate(cx - R * 1.15, cy - R * 1.15);
+  g.scale((R * 2.3) / 48, (R * 2.3) / 48);
+  g.fill(new Path2D("M6 6c7 1 12 5 15 10L8 27C5 20 4 12 6 6Z"));
+  g.fill(new Path2D("M42 6c-7 1-12 5-15 10l13 11c3-7 4-15 2-21Z"));
+  g.fill(new Path2D("M24 12c11 0 19 8 19 16 0 4-3 6-6 8-4 3-8 7-13 7s-9-4-13-7c-3-2-6-4-6-8 0-8 8-16 19-16Z"));
+  g.globalCompositeOperation = "destination-out";
+  g.fill(new Path2D("M13.5 27a2.7 2.7 0 1 0 5.4 0a2.7 2.7 0 1 0-5.4 0ZM29.1 27a2.7 2.7 0 1 0 5.4 0a2.7 2.7 0 1 0-5.4 0ZM20.5 34h7c-.7 2.4-2 3.8-3.500 3.8s-2.800-1.400-3.500-3.8Z"));
+  g.restore();
   const zh = Math.min(w * 0.3, s * 0.24);
-  g.font = `700 ${zh * 0.42}px "Fraunces Variable", Georgia, serif`;
+  g.font = `700 ${zh * 0.42}px "Plus Jakarta Sans Variable", sans-serif`;
   g.textAlign = "center";
   g.textBaseline = "middle";
   g.fillText("Lexicode", cx, cy + R + zh * 0.62);
   const en = Math.max(18, zh * 0.24);
-  g.font = `700 ${en}px "Fraunces Variable", Georgia, serif`;
+  g.font = `700 ${en}px "Plus Jakarta Sans Variable", sans-serif`;
   g.letterSpacing = `${en * 0.34}px`;
   g.fillText("TỪ VỰNG IELTS", cx, cy + R + zh * 1.22);
   const data = g.getImageData(0, 0, w, h).data;
@@ -113,12 +104,13 @@ export function Splash({ onDone }: { onDone: () => void }) {
     cv.height = h * dpr;
     const g = cv.getContext("2d")!;
     g.scale(dpr, dpr);
-    const N = w < 700 ? 2600 : 5200;
+    const N = w < 700 ? 3600 : 6400;
     const { pts, wordTop } = targets(w, h, N);
+    const ink = getComputedStyle(document.documentElement).colorScheme === "dark" ? "246,242,238" : PALETTE[0][0];
     const pick = (): string => {
       let r = Math.random();
-      for (const [c, p] of PALETTE) if ((r -= p) <= 0) return c;
-      return PALETTE[0][0];
+      for (const [c, p] of PALETTE) if ((r -= p) <= 0) return c === PALETTE[0][0] ? ink : c;
+      return ink;
     };
     const ps: P[] = [];
     const cx = w / 2;
@@ -138,10 +130,10 @@ export function Splash({ onDone }: { onDone: () => void }) {
         vx: 0,
         vy: 0,
         c: pick(),
-        // A few large glowing grains, but keep the small wordmark crisp.
-        r: ty < wordTop && Math.random() < 0.06 ? 2.2 + Math.random() * 1.4 : 0.7 + Math.random() * 1.2,
+        // A few larger grains in the fox, but keep the small wordmark crisp.
+        r: ty < wordTop && Math.random() < 0.06 ? 2.4 + Math.random() : 1.6 + Math.random() * 0.9,
         d: Math.random() * 0.55,
-        a: 0.55 + Math.random() * 0.45,
+        a: 0.85 + Math.random() * 0.15,
         tw: Math.random() * Math.PI * 2,
       });
     }
@@ -152,9 +144,8 @@ export function Splash({ onDone }: { onDone: () => void }) {
     const frame = (now: number) => {
       const t = (now - t0) / 1000;
       g.clearRect(0, 0, w, h);
-      g.globalCompositeOperation = "lighter";
       for (const s of stars) {
-        g.fillStyle = `rgba(243,236,223,${0.15 + 0.25 * (0.5 + 0.5 * Math.sin(t * 1.3 + s.tw))})`;
+        g.fillStyle = `rgba(255,95,82,${0.1 + 0.2 * (0.5 + 0.5 * Math.sin(t * 1.3 + s.tw))})`;
         g.fillRect(s.x, s.y, s.r, s.r);
       }
       if (opening.current && !openAt) {
@@ -189,16 +180,9 @@ export function Splash({ onDone }: { onDone: () => void }) {
         }
         const twinkle = 0.75 + 0.25 * Math.sin(t * 3 + p.tw * 3);
         const alpha = p.a * twinkle * fade;
-        if (p.r > 2) {
-          g.fillStyle = `rgba(${p.c},${alpha * 0.12})`;
-          g.beginPath();
-          g.arc(p.x, p.y, p.r * 2.6, 0, Math.PI * 2);
-          g.fill();
-        }
         g.fillStyle = `rgba(${p.c},${alpha})`;
         g.fillRect(p.x - p.r / 2, p.y - p.r / 2, p.r, p.r);
       }
-      g.globalCompositeOperation = "source-over";
       if (!openAt || t - openAt < 1.4) raf = requestAnimationFrame(frame);
     };
     raf = requestAnimationFrame(frame);

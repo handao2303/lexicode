@@ -4,8 +4,8 @@ import { Rating } from "../store/srs";
 import type { ActiveSession } from "../store/store";
 import { toast } from "./Toast";
 
-const SERIF = '"Fraunces Variable", "Songti SC", "Noto Serif SC", Georgia, serif';
-const SANS = '-apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+const SERIF = '"Plus Jakarta Sans Variable", "Segoe UI", sans-serif';
+const SANS = '"Plus Jakarta Sans Variable", "Segoe UI", sans-serif';
 
 const load = (src: string) =>
   new Promise<HTMLImageElement | null>((r) => {
@@ -26,7 +26,7 @@ export async function shareSession(atlas: Atlas, s: ActiveSession) {
     c.height = H;
     const ctx = c.getContext("2d")!;
     await document.fonts.load(`600 96px ${SERIF}`).catch(() => null);
-    ctx.fillStyle = "#F3ECDF";
+    ctx.fillStyle = "#FAF7F4";
     ctx.fillRect(0, 0, W, H);
     const ids = [...new Set(s.steps.map((x) => x.id))].slice(0, 9);
     const refs = ids.map((id) => atlas.byId.get(id)!).filter(Boolean);
@@ -41,7 +41,7 @@ export async function shareSession(atlas: Atlas, s: ActiveSession) {
       ctx.beginPath();
       ctx.roundRect(x, y, cell, cell, 24);
       ctx.clip();
-      ctx.fillStyle = "#EAE1D0";
+      ctx.fillStyle = "#F5E9DA";
       ctx.fillRect(x, y, cell, cell);
       const img = imgs[i];
       if (img) ctx.drawImage(img, x, y, cell, cell);
@@ -61,16 +61,16 @@ export async function shareSession(atlas: Atlas, s: ActiveSession) {
     ctx.fillStyle = "#8A8C96";
     ctx.font = `500 28px ${SANS}`;
     ctx.fillText(`${d.getDate()}/${d.getMonth() + 1} · Hôm nay thắp sáng ${ids.length} ngôi sao`, pad, top - 24);
-    ctx.fillStyle = "#1E2640";
+    ctx.fillStyle = "#1B1A27";
     ctx.font = `600 64px ${SERIF}`;
     ctx.fillText(`Học ${ids.length} từ, đúng ngay lần đầu ${st.accuracy}%`, pad, top + 52, W - pad * 2);
     const wrong = Object.values(s.graded).filter((g) => g === Rating.Again).length;
     ctx.font = `400 30px ${SANS}`;
     ctx.fillStyle = "#5A6075";
     ctx.fillText(`Từ mới ${s.newIds.length} · Ôn ${s.reviewIds.length} · Cần gặp lại ${wrong}`, pad, top + 112);
-    ctx.fillStyle = "rgba(30,38,64,.14)";
+    ctx.fillStyle = "rgba(27,26,39,.12)";
     ctx.fillRect(pad, H - 116, W - pad * 2, 2);
-    ctx.fillStyle = "#1E2640";
+    ctx.fillStyle = "#1B1A27";
     ctx.font = `600 34px ${SERIF}`;
     ctx.fillText("Lexicode", pad, H - 58);
     ctx.font = `400 26px ${SANS}`;

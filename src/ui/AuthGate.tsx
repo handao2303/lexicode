@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { cloudEnabled, oauthErrorFromUrl, signInWithGoogle, useCloud } from "../lib/cloud";
+import { FoxScene } from "./Fox";
 import { Logo } from "./Logo";
 
 /** When cloud login is configured, nothing renders until the user is signed in. */
@@ -23,13 +24,16 @@ function Login() {
 
   return (
     <div className="boot login">
-      <Logo />
       <div className="login-card">
-        <h1>Đăng nhập</h1>
-        <p className="muted">Đăng nhập bằng tài khoản Gmail đã được cấp quyền. Tiến độ học sẽ đồng bộ giữa điện thoại và máy tính.</p>
+        <div className="login-intro">
+          <Logo />
+          <h1>Chào mừng bạn đến với nền tảng học tiếng Anh và Code. Mình học thôi!</h1>
+        </div>
+        <FoxScene className="login-art" />
+        <div className="login-actions">
         <button
           type="button"
-          className="btn btn-google"
+          className="btn btn-primary btn-xl btn-google"
           disabled={busy}
           onClick={async () => {
             setError(null);
@@ -50,6 +54,8 @@ function Login() {
           {busy ? "Đang mở Google…" : "Đăng nhập bằng Google"}
         </button>
         {error && <p className="warn-text">{error}</p>}
+        <p className="muted">Dùng tài khoản Gmail đã được cấp quyền. Tiến độ học đồng bộ giữa điện thoại và máy tính.</p>
+        </div>
       </div>
     </div>
   );

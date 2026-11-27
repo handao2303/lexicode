@@ -1,5 +1,5 @@
 /** A short burst of ink-coloured particles from a point on screen (correct answers). */
-const COLORS = ["#c4573a", "#d39a2f", "#6f8f68", "#6f93ae", "#1e2640", "#e6b457"];
+const COLORS = ["#ff5f52", "#ffc20e", "#7fb52e", "#8fd0d4", "#7b2ff0", "#ffb27a"];
 let canvas: HTMLCanvasElement | null = null;
 let parts: { x: number; y: number; vx: number; vy: number; r: number; c: string; life: number; rot: number; vr: number }[] = [];
 let raf = 0;
