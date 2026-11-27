@@ -4659,3 +4659,4 @@ a.lc-row:hover { background: var(--paper-2); }
   font-weight: 600;
   color: var(--ink-2);
 }
+.auth-legal { font-size: 12.5px; margin-top: 4px; } .auth-legal a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }

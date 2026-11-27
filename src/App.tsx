@@ -181,7 +181,7 @@ function Shell({ privateAvailable }: { privateAvailable: boolean }) {
         <footer className="footer">
           <Logo compact />
           <p>
-            Từ vựng IELTS · Code & Data · <a href="#/about">Giới thiệu</a>
+            Từ vựng IELTS · Code & Data · <a href="#/about">Giới thiệu</a> · <a href="/privacy.html">Quyền riêng tư</a>
           </p>
         </footer>
       )}

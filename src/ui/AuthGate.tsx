@@ -55,6 +55,9 @@ function Login() {
         </button>
         {error && <p className="warn-text">{error}</p>}
         <p className="muted">Dùng bất kỳ tài khoản Google nào. Tiến độ học đồng bộ giữa điện thoại và máy tính.</p>
+        <p className="muted auth-legal">
+          <a href="/privacy.html">Chính sách quyền riêng tư</a> · <a href="/terms.html">Điều khoản sử dụng</a>
+        </p>
         </div>
       </div>
     </div>
